@@ -4,32 +4,58 @@ metadata:
   name: hello-universe
 
 ---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hello-universe
+  namespace: hello-universe
+data:
+  ADD_FUN: "yes"
+
+---
 kind: Deployment
 apiVersion: apps/v1
 metadata:
   namespace: hello-universe
   name: hello-universe
 spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      name: hello-universe
+  strategy:
+    rollingUpdate:
+      maxSurge: "50%"
+      maxUnavailable: "50%"
+    type: RollingUpdate
   template:
     spec:
       containers:
-        - livenessProbe:
-            initialDelaySeconds: 5
+        - startupProbe:
+            httpGet:
+              path: "/"
+              port: 5000
+            timeoutSeconds: 1
+            periodSeconds: 2
+            failureThreshold: 2
+          livenessProbe:
             tcpSocket:
               port: 5000
             periodSeconds: 5
-          name: hello-universe
-          imagePullPolicy: IfNotPresent
           readinessProbe:
             httpGet:
               path: "/"
               port: 5000
             timeoutSeconds: 10
             periodSeconds: 5
-            successThreshold: 1
-            initialDelaySeconds: 5
+            successThreshold: 2
             failureThreshold: 2
+          name: hello-universe
+          imagePullPolicy: IfNotPresent
           image: nanda/hello-universe:v8
+          envFrom:
+            - configMapRef:
+                name: hello-universe
           ports:
             - protocol: TCP
               name: pythonport
@@ -47,9 +73,6 @@ spec:
       labels:
         name: hello-universe
         version: v1
-  selector:
-    matchLabels:
-      name: hello-universe
 
 ---
 kind: Service
