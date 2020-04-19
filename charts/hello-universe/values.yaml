@@ -19,27 +19,27 @@ containers:
     limits:
       cpu: 200m
       memory: 200M
-- name: hello-world
-  port: 2000
-  portName: pythonport
-  internalServicePort: 800
-  imageName: nginx
-  imageTag: v9
-  configMapName: nginx
-  resources:
-    requests:
-      cpu: 100m
-      memory: 100M
-    limits:
-      cpu: 200m
-      memory: 200M
+# - name: hello-world
+#   port: 2000
+#   portName: pythonport
+#   internalServicePort: 800
+#   imageName: nginx
+#   imageTag: v9
+#   configMapName: nginx
+#   resources:
+#     requests:
+#       cpu: 100m
+#       memory: 100M
+#     limits:
+#       cpu: 200m
+#       memory: 200M
 configMaps:
 - name: hello-universe
   data:
     ADD_FUN: "yes"
-- name: nginx
-  data:
-    ADD_FUN: "yeah"
+# - name: nginx
+#   data:
+    # ADD_FUN: "yeah"
 affinity:
   nodeAffinityLabels:
     - name: kubernetes.io/hostname
