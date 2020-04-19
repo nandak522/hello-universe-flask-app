@@ -58,29 +58,3 @@ affinity:
     {{- end }}
   {{- end }}
 {{- end -}}
-
-{{- define "app.requiredPodAntiAffinity" }}
-podAntiAffinity:
-  requiredDuringSchedulingIgnoredDuringExecution:
-  - labelSelector:
-      matchExpressions:
-      - key: app
-        operator: In
-        values:
-        - store
-    topologyKey: "kubernetes.io/hostname"
-{{- end }}
-
-{{- define "app.preferredPodAntiAffinity" }}
-podAntiAffinity:
-  preferredDuringSchedulingIgnoredDuringExecution:
-      - weight: 100
-        podAffinityTerm:
-          labelSelector:
-            matchExpressions:
-            - key: security
-              operator: In
-              values:
-              - S2
-          topologyKey: failure-domain.beta.kubernetes.io/zone
-{{- end }}
