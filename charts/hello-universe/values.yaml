@@ -1,0 +1,54 @@
+environment: prod
+namespace: hello-universe
+name: hello-universe
+podLabels:
+  app: hello-universe
+replicas: 3
+containers:
+- name: hello-universe
+  port: 5000
+  portName: pythonport
+  internalServicePort: 80
+  imageName: nanda/hello-universe
+  imageTag: v8
+  configMapName: hello-universe
+  resources:
+    requests:
+      cpu: 100m
+      memory: 100M
+    limits:
+      cpu: 200m
+      memory: 200M
+- name: hello-world
+  port: 2000
+  portName: pythonport
+  internalServicePort: 800
+  imageName: nginx
+  imageTag: v9
+  configMapName: nginx
+  resources:
+    requests:
+      cpu: 100m
+      memory: 100M
+    limits:
+      cpu: 200m
+      memory: 200M
+configMaps:
+- name: hello-universe
+  data:
+    ADD_FUN: "yes"
+- name: nginx
+  data:
+    ADD_FUN: "yeah"
+affinity:
+  nodeAffinityLabels:
+    - name: kubernetes.io/hostname
+      value: minikube
+  podAntiAffinity:
+    type: "required" # vs preferred
+    labels: # similar to podLabels mentioned above
+      - name: app
+        value: hello-universe
+rollingUpdate:
+  maxSurge: "30%"
+  maxUnavailable: "20%"
