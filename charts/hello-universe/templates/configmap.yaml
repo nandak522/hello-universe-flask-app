@@ -1,12 +1,6 @@
 {{- $root := . -}}
-{{- $configMaps := .Values.configMaps }}
-{{- range $index, $configMap := $configMaps }}
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ $configMap.name }}
-  namespace: {{ $root.Values.namespace }}
-data:
-{{- toYaml $configMap.data | nindent 2 }}
+{{- range $index, $configMap := $root.Values.configMaps }}
+{{- $configmap := dict "name" $configMap.name "namespace" $root.Values.namespace "data" $configMap.data }}
+{{- include "app.configmap" $configmap }}
 ---
 {{- end }}

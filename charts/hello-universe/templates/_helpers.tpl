@@ -58,3 +58,31 @@ affinity:
     {{- end }}
   {{- end }}
 {{- end -}}
+
+{{- define "app.configmap" }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .name }}
+  namespace: {{ .namespace }}
+data:
+{{- toYaml .data | nindent 2 }}
+{{- end }}
+
+{{/*
+Renders secret based on the secrets.yaml
+*/}}
+{{- define "app.secret" -}}
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+  name: {{ .secret.name }}
+  namespace: {{ .namespace }}
+data:
+{{- if .secret.data -}}
+{{- toYaml .secret.data | nindent 2 }}
+{{- else if .secret.file }}
+  {{- (.root.Files.Glob (printf "%s" .secret.file)).AsSecrets | nindent 2 }}
+{{- end -}}
+{{- end }}

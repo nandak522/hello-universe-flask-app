@@ -1,0 +1,13 @@
+{{/*
+This file is intentionally named as secreDS.yaml to escape the gitignore rule.
+This file is more like a template and doesn't contain any actual secrets.
+*/}}
+
+{{- $root := . }}
+{{- $namespace := .Values.namespace }}
+{{- $secrets := .Values.secrets }}
+{{ range $index, $secret := $secrets }}
+{{- $secretData := dict "root" $root "namespace" $namespace "secret" $secret }}
+{{- include "app.secret" $secretData }}
+---
+{{- end }}
