@@ -40,6 +40,10 @@ configMaps:
 # - name: nginx
 #   data:
     # ADD_FUN: "yeah"
+- name: config
+  file: config.json
+  mountPath: /service/config.json
+# NOTE: secrets are part of values-secrets.yaml
 affinity:
   nodeAffinityLabels:
     - name: kubernetes.io/hostname
