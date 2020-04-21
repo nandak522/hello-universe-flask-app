@@ -63,10 +63,14 @@ affinity:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .name }}
+  name: {{ .configMap.name }}
   namespace: {{ .namespace }}
 data:
-{{- toYaml .data | nindent 2 }}
+{{- if .configMap.data -}}
+{{- toYaml .configMap.data | nindent 2 }}
+{{- else if .configMap.file }}
+  {{- (.root.Files.Glob (printf "%s" .configMap.file)).AsConfig | nindent 2 }}
+{{- end -}}
 {{- end }}
 
 {{/*
@@ -86,3 +90,17 @@ data:
   {{- (.root.Files.Glob (printf "%s" .secret.file)).AsSecrets | nindent 2 }}
 {{- end -}}
 {{- end }}
+
+{{/*
+Renders VolumeMounts for the Container in a Pod
+*/}}
+{{- define "app.containerVolumeMounts" -}}
+{{- range $index, $volumeMountData := . -}}
+{{- if and ($volumeMountData.file) ($volumeMountData.mountPath) }}
+- mountPath: {{ $volumeMountData.mountPath }}
+  subPath: {{ $volumeMountData.file }}
+  name: {{ $volumeMountData.name }}
+  readOnly: true
+{{- end }}
+{{- end }}
+{{- end -}}

@@ -1,3 +1,4 @@
+{{- $root := . -}}
 {{- $environment := .Values.environment -}}
 kind: Deployment
 apiVersion: apps/v1
@@ -46,4 +47,7 @@ spec:
               containerPort: {{ .port }}
           resources:
           {{- toYaml .resources | nindent 12 }}
+          volumeMounts:
+            {{- include "app.containerVolumeMounts" $root.Values.configMaps | trim | nindent 12 }}
+            {{- include "app.containerVolumeMounts" $root.Values.secrets | trim | nindent 12 }}
       {{- end }}

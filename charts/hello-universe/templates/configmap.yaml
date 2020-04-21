@@ -1,6 +1,8 @@
 {{- $root := . -}}
-{{- range $index, $configMap := $root.Values.configMaps }}
-{{- $configmap := dict "name" $configMap.name "namespace" $root.Values.namespace "data" $configMap.data }}
-{{- include "app.configmap" $configmap }}
+{{- $namespace := .Values.namespace }}
+{{- $configMaps := .Values.configMaps }}
+{{- range $index, $configMap := $configMaps }}
+{{- $configMapData := dict "root" $root "namespace" $namespace "configMap" $configMap }}
+{{- include "app.configmap" $configMapData }}
 ---
 {{- end }}
