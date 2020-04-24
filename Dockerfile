@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
 ENV DEBIAN_FRONTEND=noninteractive PYTHONUNBUFFERED=1
 
@@ -7,6 +7,7 @@ RUN apt-get update && \
     curl \
     less \
     lsof \
+    netcat \
     net-tools \
     python3-dev \
     python3-pip \
