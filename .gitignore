@@ -103,4 +103,8 @@ venv.bak/
 # mypy
 .mypy_cache/
 
+# Mac cruft
 .DS_Store
+
+# VSCode cruft
+/.devcontainer.json
