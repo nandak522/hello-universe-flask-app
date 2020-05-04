@@ -35,13 +35,13 @@ containers:
 #       cpu: 200m
 #       memory: 200M
 configMaps:
-- name: hello-universe
+- name: config-plain
   data:
     ADD_FUN: "yes"
 # - name: nginx
 #   data:
     # ADD_FUN: "yeah"
-- name: config
+- name: config-file
   file: config.json
   mountPath: /service/config.json
 # NOTE: secrets are part of values-secrets.yaml

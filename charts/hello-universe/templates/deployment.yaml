@@ -50,4 +50,9 @@ spec:
           volumeMounts:
             {{- include "app.containerVolumeMounts" $root.Values.configMaps | trim | nindent 12 }}
             {{- include "app.containerVolumeMounts" $root.Values.secrets | trim | nindent 12 }}
+      {{ $podConfigMapVolumesData := dict "configMaps" $root.Values.configMaps "type" "configMaps" -}}
+      {{ $podSecretVolumesData := dict "secrets" $root.Values.secrets "type" "secrets" -}}
+      volumes:
+        {{- include "app.podVolumes" $podConfigMapVolumesData | trim | nindent 8 }}
+        {{- include "app.podVolumes" $podSecretVolumesData | trim | nindent 8 }}
       {{- end }}

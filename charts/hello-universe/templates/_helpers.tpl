@@ -104,3 +104,22 @@ Renders VolumeMounts for the Container in a Pod
 {{- end }}
 {{- end }}
 {{- end -}}
+
+{{/*
+Renders VolumeMounts for the Pod
+*/}}
+{{- define "app.podVolumes" -}}
+{{- if eq .type "secrets" }}
+{{- range .secrets -}}
+- secret:
+    secretName: {{ .name }}
+  name: {{ .name }}
+{{ end }}
+{{- else -}}
+{{- range .configMaps -}}
+- configMap:
+    name: {{ .name }}
+  name: {{ .name }}
+{{ end }}
+{{- end -}}
+{{- end -}}
