@@ -12,7 +12,7 @@ spec:
     type: RollingUpdate
   selector:
     matchLabels:
-      name: {{ .Values.name }}
+      app: {{ .Values.name }}
   template:
     metadata:
       labels:

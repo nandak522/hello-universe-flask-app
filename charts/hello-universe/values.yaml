@@ -3,7 +3,6 @@ namespace: hello-universe
 name: hello-universe
 podLabels:
   app: hello-universe
-  version: v10
 replicas: 4
 containers:
 - name: hello-universe
