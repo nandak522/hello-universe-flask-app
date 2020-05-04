@@ -11,7 +11,8 @@ containers:
   internalServicePort: 80
   imageName: nanda/hello-universe
   imageTag: v10
-  configMapName: hello-universe
+  configMapName: config-plain
+  secretName: secrets-plain
   resources:
     requests:
       cpu: 100m

@@ -12,4 +12,4 @@ spec:
       port: {{ .internalServicePort }}
     {{- end }}
   selector:
-    name: {{ .Values.name }}
+    app: {{ .Values.name }}
