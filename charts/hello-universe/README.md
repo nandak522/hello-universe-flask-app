@@ -24,8 +24,25 @@ helm template hello-universe \
 #### To make a Helm release
 ```sh
 cd charts/hello-universe
+
+# Prerequisite:
+cat <<EOF | kubectl apply -f -
+# Source: hello-universe/templates/namespace.yaml
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: hello-universe
+  annotations:
+    meta.helm.sh/release-name: v1
+    meta.helm.sh/release-namespace: hello-universe
+  labels:
+    app.kubernetes.io/managed-by: Helm
+
+EOF
+
 helm install -v 3 \
     --atomic \
+    --namespace hello-universe \
     --debug \
     --dry-run \
     -f values-secrets.yaml \

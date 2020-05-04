@@ -2,3 +2,8 @@ kind: Namespace
 apiVersion: v1
 metadata:
   name: {{ .Values.namespace }}
+  annotations:
+    meta.helm.sh/release-name: v1
+    meta.helm.sh/release-namespace: {{ .Values.namespace }}
+  labels:
+    app.kubernetes.io/managed-by: Helm
