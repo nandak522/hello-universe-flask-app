@@ -3,14 +3,15 @@ namespace: hello-universe
 name: hello-universe
 podLabels:
   app: hello-universe
-replicas: 3
+  version: v10
+replicas: 4
 containers:
 - name: hello-universe
   port: 5000
   portName: pythonport
   internalServicePort: 80
   imageName: nanda/hello-universe
-  imageTag: v9
+  imageTag: v10
   configMapName: hello-universe
   resources:
     requests:
@@ -24,7 +25,7 @@ containers:
 #   portName: pythonport
 #   internalServicePort: 800
 #   imageName: nginx
-#   imageTag: v9
+#   imageTag: v10
 #   configMapName: nginx
 #   resources:
 #     requests:
