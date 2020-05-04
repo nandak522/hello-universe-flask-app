@@ -1,0 +1,153 @@
+---
+# Source: hello-universe/templates/namespace.yaml
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: hello-universe
+---
+# Source: hello-universe/templates/secreds.yaml
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+  name: secrets-plain
+  namespace: hello-universe
+data:
+  SECRET_FUN: WUVBSAo=
+---
+# Source: hello-universe/templates/secreds.yaml
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+  name: secrets-file
+  namespace: hello-universe
+data:
+  secrets.json: ewogICAgIkFERF9GVU4iOiAiSGVsbCBZZWFoISIKfQo=
+---
+# Source: hello-universe/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-plain
+  namespace: hello-universe
+data:
+  ADD_FUN: "yes"
+---
+# Source: hello-universe/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-file
+  namespace: hello-universe
+data:
+  config.json: |
+    {
+        "I_AM_A_CONFIG": "Hell Yeah!"
+    }
+---
+# Source: hello-universe/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-universe
+  namespace: hello-universe
+spec:
+  type: NodePort
+  ports:
+    - protocol: TCP
+      targetPort: 5000
+      port: 80
+  selector:
+    app: hello-universe
+---
+# Source: hello-universe/templates/deployment.yaml
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: hello-universe
+  namespace: hello-universe
+spec:
+  strategy:
+    rollingUpdate:
+      maxSurge: 30%
+      maxUnavailable: 20%
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: hello-universe
+  template:
+    metadata:
+      labels:
+        app: hello-universe
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - minikube
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - hello-universe
+              topologyKey: kubernetes.io/hostname
+      containers:
+        - livenessProbe:
+            tcpSocket:
+              port: 5000
+            periodSeconds: 5
+          name: hello-universe
+          envFrom:
+            - configMapRef:
+                name: config-plain
+          imagePullPolicy: IfNotPresent
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 5000
+            timeoutSeconds: 10
+            periodSeconds: 5
+            successThreshold: 1
+            failureThreshold: 2
+          image: nanda/hello-universe:v10
+          ports:
+            - protocol: TCP
+              name: pythonport
+              containerPort: 5000
+          resources:
+            limits:
+              cpu: 200m
+              memory: 200M
+            requests:
+              cpu: 100m
+              memory: 100M
+          volumeMounts:
+            - mountPath: /service/config.json
+              subPath: config.json
+              name: config-file
+              readOnly: true
+            - mountPath: /service/secrets.json
+              subPath: secrets.json
+              name: secrets-file
+              readOnly: true
+      volumes:
+        - configMap:
+            name: config-plain
+          name: config-plain
+        - configMap:
+            name: config-file
+          name: config-file
+        - secret:
+            secretName: secrets-plain
+          name: secrets-plain
+        - secret:
+            secretName: secrets-file
+          name: secrets-file
