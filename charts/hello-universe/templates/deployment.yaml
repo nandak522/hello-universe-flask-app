@@ -29,8 +29,8 @@ spec:
             periodSeconds: 5
           name: {{ .name }}
           envFrom:
-          - configMapRef:
-              name: {{ .configMapName }}
+            - configMapRef:
+                name: {{ .configMapName }}
           imagePullPolicy: IfNotPresent
           readinessProbe:
             httpGet:

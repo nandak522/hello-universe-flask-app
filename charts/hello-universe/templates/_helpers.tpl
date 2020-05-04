@@ -8,10 +8,10 @@ nodeAffinity:
   requiredDuringSchedulingIgnoredDuringExecution:
     nodeSelectorTerms:
     - matchExpressions:
-      - key: HA
-        operator: DoesNotExist
-      - key: cron
-        operator: DoesNotExist
+        - key: HA
+          operator: DoesNotExist
+        - key: cron
+          operator: DoesNotExist
 {{- end }}
 
 {{- define "app.affinity" }}
@@ -20,41 +20,41 @@ affinity:
   nodeAffinity:
     requiredDuringSchedulingIgnoredDuringExecution:
       nodeSelectorTerms:
-      - matchExpressions:
-        {{- range $index, $label := .nodeAffinityLabels }}
-        - key: {{ $label.name }}
-          operator: In
-          values:
-          - {{ $label.value }}
-        {{- end }}
+        - matchExpressions:
+            {{- range $index, $label := .nodeAffinityLabels }}
+            - key: {{ $label.name }}
+              operator: In
+              values:
+                - {{ $label.value }}
+            {{- end }}
   {{- end }}
   {{- if .podAntiAffinity }}
   podAntiAffinity:
   {{- if eq .podAntiAffinity.type "required" }}
     requiredDuringSchedulingIgnoredDuringExecution:
-    - labelSelector:
-        matchExpressions:
-        {{- range $index, $label := .podAntiAffinity.labels }}
-        - key: {{ $label.name }}
-          operator: In
-          values:
-          - {{ $label.value }}
-        {{- end }}
-      topologyKey: kubernetes.io/hostname
+      - labelSelector:
+          matchExpressions:
+            {{- range $index, $label := .podAntiAffinity.labels }}
+            - key: {{ $label.name }}
+              operator: In
+              values:
+                - {{ $label.value }}
+            {{- end }}
+        topologyKey: kubernetes.io/hostname
     {{- end }}
     {{- if eq .podAntiAffinity.type "preferred" }}
     preferredDuringSchedulingIgnoredDuringExecution:
-    - weight: 100
-      podAffinityTerm:
-        labelSelector:
-          matchExpressions:
-          {{- range $index, $label := .podAntiAffinity.labels }}
-          - key: {{ $label.name }}
-            operator: In
-            values:
-            - {{ $label.value }}
-          {{- end }}
-        topologyKey: kubernetes.io/hostname
+      - weight: 100
+        podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+              {{- range $index, $label := .podAntiAffinity.labels }}
+              - key: {{ $label.name }}
+                operator: In
+                values:
+                  - {{ $label.value }}
+              {{- end }}
+          topologyKey: kubernetes.io/hostname
     {{- end }}
   {{- end }}
 {{- end -}}
