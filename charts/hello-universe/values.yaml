@@ -20,7 +20,7 @@ containers:
     limits:
       cpu: 200m
       memory: 200M
-# - name: hello-world
+# - name: hello-universe
 #   port: 2000
 #   portName: pythonport
 #   internalServicePort: 800
