@@ -10,13 +10,15 @@ helm template -v 5 \
     -f values-infra.yaml \
     -f values.yaml \
     -f values-secrets.yaml \
+    -f env-overrides/values-dev.yaml \
     hello-universe \
     .
 
 helm template hello-universe \
     -f values-infra.yaml \
-    -f values-secrets.yaml \
     -f values.yaml \
+    -f values-secrets.yaml \
+    -f env-overrides/values-dev.yaml \
     -v 5 \
     --debug \
     --logtostderr \

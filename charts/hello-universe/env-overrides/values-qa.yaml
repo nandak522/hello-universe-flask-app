@@ -1,0 +1,3 @@
+infraConfig:
+  DATABASE_HOST: qa-db.example.com
+replicas: 2

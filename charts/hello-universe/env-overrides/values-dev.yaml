@@ -1,0 +1,3 @@
+infraConfig:
+  DATABASE_HOST: dev-db.example.com
+replicas: 5
