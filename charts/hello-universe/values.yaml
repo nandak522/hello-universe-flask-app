@@ -10,7 +10,7 @@ containers:
   portName: pythonport
   internalServicePort: 80
   imageName: nanda/hello-universe
-  imageTag: v10
+  imageTag: v11
   configMapName: config-plain
   secretName: secrets-plain
   resources:
@@ -45,15 +45,15 @@ configMaps:
   file: config.json
   mountPath: /service/config.json
 # NOTE: secrets are part of values-secrets.yaml
-affinity:
-  nodeAffinityLabels:
-    - name: kubernetes.io/hostname
-      value: minikube
-  podAntiAffinity:
-    type: "required" # vs preferred
-    labels: # similar to podLabels mentioned above
-      - name: app
-        value: hello-universe
+# affinity:
+#   nodeAffinityLabels:
+#     - name: kubernetes.io/hostname
+#       value: minikube
+#   podAntiAffinity:
+#     type: "required" # vs preferred
+#     labels: # similar to podLabels mentioned above
+#       - name: app
+#         value: hello-universe
 rollingUpdate:
   maxSurge: "30%"
   maxUnavailable: "20%"
