@@ -123,3 +123,24 @@ Renders VolumeMounts for the Pod
 {{ end }}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Renders Infra Configmap
+*/}}
+{{- define "app.infra-configmap" -}}
+{{ $root := . }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .requiredInfraConfigs.name }}
+  namespace: {{ .namespace }}
+data:
+  # Iterate on all required keys of .requiredInfraConfigs and
+  # for each key, pull the value expression and
+  # lookup that expression in .infraConfig values
+  {{ range $configKey, $configValue := .requiredInfraConfigs.values }}
+  {{- $configValue := trimPrefix "$" $configValue }}
+  {{- $actualConfigValue := pluck $configValue $root.allInfraConfigs | first }}
+  {{- $configKey -}}: {{$actualConfigValue | quote}}
+  {{ end }}
+{{ end }}

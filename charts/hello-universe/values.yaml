@@ -10,7 +10,7 @@ containers:
   portName: pythonport
   internalServicePort: 80
   imageName: nanda/hello-universe
-  imageTag: v11
+  imageTag: v10
   configMapName: config-plain
   secretName: secrets-plain
   resources:
@@ -45,6 +45,12 @@ configMaps:
   file: config.json
   mountPath: /service/config.json
 # NOTE: secrets are part of values-secrets.yaml
+requiredInfraConfigs:
+  name: app-infra
+  values:
+    # NOTE: All the below values are interpreted from values-infra.yaml
+    MYSQL_HOST: $DATABASE_HOST
+    MYSQL_PORT: $DATABASE_PORT
 # affinity:
 #   nodeAffinityLabels:
 #     - name: kubernetes.io/hostname

@@ -7,12 +7,14 @@ helm template -v 5 \
     --logtostderr \
     --debug \
     -s templates/configmap.yaml \
+    -f values-infra.yaml \
     -f values.yaml \
     -f values-secrets.yaml \
     hello-universe \
     .
 
 helm template hello-universe \
+    -f values-infra.yaml \
     -f values-secrets.yaml \
     -f values.yaml \
     -v 5 \
@@ -45,6 +47,7 @@ helm install -v 3 \
     --namespace hello-universe \
     --debug \
     --dry-run \
+    -f values-infra.yaml \
     -f values-secrets.yaml \
     -f values.yaml \
     v1 \
@@ -56,6 +59,7 @@ helm install -v 3 \
 #     --namespace hello-universe \
 #     --debug \
 #     --cleanup-on-fail \
+#     -f values-infra.yaml \
 #     -f values-secrets.yaml \
 #     -f values.yaml \
 #     v1 \
