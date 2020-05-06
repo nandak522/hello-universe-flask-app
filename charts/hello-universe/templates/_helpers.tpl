@@ -125,22 +125,13 @@ Renders VolumeMounts for the Pod
 {{- end -}}
 
 {{/*
-Renders Infra Configmap
+Renders Pod Annotations. Handy to roll the Pod as and when a configmap/secret changes.
 */}}
-{{- define "app.infra-configmap" -}}
-{{ $root := . }}
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ .requiredInfraConfigs.name }}
-  namespace: {{ .namespace }}
-data:
-  # Iterate on all required keys of .requiredInfraConfigs and
-  # for each key, pull the value expression and
-  # lookup that expression in .infraConfig values
-  {{ range $configKey, $configValue := .requiredInfraConfigs.values }}
-  {{- $configValue := trimPrefix "$" $configValue }}
-  {{- $actualConfigValue := pluck $configValue $root.allInfraConfigs | first }}
-  {{- $configKey -}}: {{$actualConfigValue | quote}}
-  {{ end }}
-{{ end }}
+{{- define "app.podAnnotations" -}}
+{{- $root := . }}
+{{- $namespace := .Values.namespace }}
+annotations:
+  checksum/infra-configmap: {{ include (print $.Template.BasePath "/infra-configmap.yaml") . | sha256sum }}
+  checksum/configmap: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+  checksum/secrets: {{ include (print $.Template.BasePath "/secreds.yaml") . | sha256sum }}
+{{- end }}

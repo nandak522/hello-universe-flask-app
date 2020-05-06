@@ -18,6 +18,7 @@ helm template hello-universe \
     -f values-secrets.yaml \
     -f values.yaml \
     -v 5 \
+    --debug \
     --logtostderr \
     .
 ```
@@ -42,7 +43,7 @@ metadata:
 
 EOF
 
-helm install -v 3 \
+helm install -v 5 \
     --atomic \
     --namespace hello-universe \
     --debug \

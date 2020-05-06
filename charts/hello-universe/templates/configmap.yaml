@@ -6,5 +6,3 @@
 {{- include "app.configmap" $configMapData }}
 ---
 {{- end }}
-{{- $infraConfigsData := dict "namespace" $namespace "requiredInfraConfigs" .Values.requiredInfraConfigs "allInfraConfigs" .Values.infraConfig }}
-{{ include "app.infra-configmap" $infraConfigsData }}

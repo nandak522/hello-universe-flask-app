@@ -19,6 +19,7 @@ spec:
     metadata:
       labels:
         {{- toYaml .Values.podLabels | nindent 8 }}
+      {{- include "app.podAnnotations" . | indent 6 }}
     spec:
       {{- if and (eq .Values.environment "prod") (.Values.affinity) }}
       {{- include "app.affinity" .Values.affinity | trim | nindent 6 }}
