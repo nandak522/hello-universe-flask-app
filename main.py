@@ -22,7 +22,7 @@ def elapsed():
 
 @app.route('/')
 def root():
-    request_headers = "".join(["<tr><td style='background:#5a5c5f; padding:6px;'>{}</td><td style='background:#565365; padding:6px;'>{}</td></tr>".format(
+    request_headers = "".join(["<tr><td style='background:#0b0d1b; padding:6px;'>{}</td><td style='background:#141619; padding:6px;'>{}</td></tr>".format(
         header_name, header_value) for (header_name, header_value) in flask.request.headers.items()])
     host = "[HOST: {}] (uptime: {})]".format(socket.gethostname(), elapsed())
     response_body = "Hello Universe"
@@ -31,7 +31,7 @@ def root():
     margin: 0 auto;
     font-family: sans-serif;
     margin-top: 40px;
-    background: #3f3f4a;
+    background: #000;
     color: #FFF;
     """
     response = "<title>Hello Universe</title><body style='{}'><h3>Request Headers</h3><table>{}</table><hr/><h3>Response from {} </h3><div style='font-size:20px;border: 1px solid #d4d3d9; padding: 20px;'>{}</div></body>".format(
