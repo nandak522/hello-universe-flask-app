@@ -34,7 +34,7 @@ def root():
     background: #000;
     color: #FFF;
     """
-    response = "<title>Hello Universe</title><body style='{}'><h3>Request Headers</h3><table>{}</table><hr/><h3>Response from {} </h3><div style='font-size:20px;border: 1px solid #d4d3d9; padding: 20px;'>{}</div></body>".format(
+    response = "<title>Hello Thanos</title><body style='{}'><h3>Request Headers</h3><table>{}</table><hr/><h3>Response from {} </h3><div style='font-size:20px;border: 1px solid #d4d3d9; padding: 20px;'>{}</div></body>".format(
         style.replace("\n", " "), request_headers, host, response_body)
     return response
 
