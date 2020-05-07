@@ -14,3 +14,15 @@ jobs:
         run: ls -alh
       - name: Run helm version
         run: helm version
+      - name: Validate Helm Templates
+        run: |
+          cd charts/hello-universe
+          helm template hello-universe \
+          -f values-infra.yaml \
+          -f values.yaml \
+          -f values-secrets.yaml \
+          -f env-overrides/values-dev.yaml \
+          -v 5 \
+          --debug \
+          --logtostderr \
+          .
