@@ -10,5 +10,3 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - continue-on-error: false
-      - name: helm-validate
-        uses: nanda/helm-template-validator@v0.1.0
