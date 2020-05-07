@@ -8,7 +8,7 @@ jobs:
     name: helm-validate
     runs-on: ubuntu-18.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: docker://nanda/helm-template-validator@v0.1.0
         continue-on-error: false
-      - uses: nanda/helm-template-validator@v0.1.0
-        continue-on-error: false
+      - name: Run helm version
+        run: helm version
