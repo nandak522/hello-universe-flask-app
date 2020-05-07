@@ -9,4 +9,4 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
-      - continue-on-error: false
+        continue-on-error: false
