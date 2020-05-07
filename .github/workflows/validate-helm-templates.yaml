@@ -12,4 +12,3 @@ jobs:
         continue-on-error: false
       - uses: nanda/helm-template-validator@v0.1.0
         continue-on-error: false
-        run: helm version
