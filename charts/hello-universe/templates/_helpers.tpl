@@ -3,16 +3,6 @@
 {{/*
 Renders nodeAffinity block in the manifests
 */}}
-{{- define "app.podAntiAffinity" }}
-nodeAffinity:
-  requiredDuringSchedulingIgnoredDuringExecution:
-    nodeSelectorTerms:
-    - matchExpressions:
-        - key: HA
-          operator: DoesNotExist
-        - key: cron
-          operator: DoesNotExist
-{{- end }}
 
 {{- define "app.affinity" }}
 affinity:
