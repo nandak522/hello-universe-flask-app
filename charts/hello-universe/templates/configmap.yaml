@@ -3,6 +3,7 @@
 {{- $configMaps := .Values.configMaps }}
 {{- range $index, $configMap := $configMaps }}
 {{- $configMapData := dict "root" $root "namespace" $namespace "configMap" $configMap }}
+
 {{- include "app.configmap" $configMapData }}
 ---
 {{- end }}
