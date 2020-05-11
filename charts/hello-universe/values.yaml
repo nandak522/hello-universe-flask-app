@@ -10,7 +10,7 @@ containers:
   portName: pythonport
   internalServicePort: 80
   imageName: nanda/hello-universe
-  imageTag: v10
+  imageTag: v11
   configMapName: config-plain
   secretName: secrets-plain
   resources:
@@ -20,12 +20,12 @@ containers:
     limits:
       cpu: 200m
       memory: 200M
-# - name: hello-universe
-#   port: 2000
-#   portName: pythonport
-#   internalServicePort: 800
+# - name: nginx
+#   port: 80
+#   portName: httpport
+#   internalServicePort: 80
 #   imageName: nginx
-#   imageTag: v10
+#   imageTag: v1.18.0
 #   configMapName: nginx
 #   resources:
 #     requests:
