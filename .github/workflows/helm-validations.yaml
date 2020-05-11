@@ -4,7 +4,7 @@ on:
     branches:
       - master
     paths:
-      - "charts/hello-universe/*"
+      - "charts/hello-universe/**"
 jobs:
   build:
     name: Validate Helm Templates
