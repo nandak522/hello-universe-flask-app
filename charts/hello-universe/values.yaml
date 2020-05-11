@@ -45,12 +45,13 @@ configMaps:
   file: config.json
   mountPath: /service/config.json
 # NOTE: secrets are part of values-secrets.yaml
-requiredInfraConfigs:
+requiredInfraDependencies:
   name: app-infra
   values:
     # NOTE: All the below values are interpreted from values-infra.yaml
     MYSQL_HOST: $DATABASE_HOST
     MYSQL_PORT: $DATABASE_PORT
+    SERVICE_A: $SERVICE_A
 # affinity:
 #   nodeAffinityLabels:
 #     - name: kubernetes.io/hostname

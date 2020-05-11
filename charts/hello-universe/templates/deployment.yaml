@@ -1,6 +1,6 @@
 {{- $root := . -}}
 {{- $environment := .Values.environment -}}
-{{- $infraConfig := $root.Values.infraConfig -}}
+{{- $infraSettings := $root.Values.infraSettings -}}
 
 kind: Deployment
 apiVersion: apps/v1
@@ -36,7 +36,7 @@ spec:
             - configMapRef:
                 name: {{ .configMapName }}
             - configMapRef:
-                name: {{ $root.Values.requiredInfraConfigs.name }}
+                name: {{ $root.Values.requiredInfraDependencies.name }}
           imagePullPolicy: IfNotPresent
           readinessProbe:
             httpGet:

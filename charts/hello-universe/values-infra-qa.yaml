@@ -1,0 +1,4 @@
+infraSettings:
+  DATABASE_HOST: qa-db.example.com
+  DATABASE_PORT: 3306
+  SERVICE_A: "www.example.com"

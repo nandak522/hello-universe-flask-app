@@ -1,3 +1,4 @@
-infraConfig:
+infraSettings:
   DATABASE_HOST: 0.0.0.0
   DATABASE_PORT: 3306
+  SERVICE_A: "www.example.com"
