@@ -18,7 +18,7 @@ jobs:
         run: |
           TAG=$(cat VERSION.txt)
           echo $TAG
-          docker build -t nanda/hello-universe-flask-app:$TAG .
+          docker build -t nanda/hello-universe:$TAG .
 
       - name: Log in to dockerhub registry
         run: docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password ${{ secrets.DOCKERHUB_PASSWORD }}
@@ -27,4 +27,4 @@ jobs:
         run: |
           TAG=$(cat VERSION.txt)
           echo $TAG
-          docker push nanda/hello-universe-flask-app:$TAG
+          docker push nanda/hello-universe:$TAG
