@@ -1,4 +1,5 @@
+# This file is usually git-ignored. Its just here for reference.
 infraSettings:
-  DATABASE_HOST: prod-db.example.com
-  DATABASE_PORT: 3306
-  SERVICE_A: "www.example.com"
+  DATABASE_HOST: cHJvZC1kYi5leGFtcGxlLmNvbQ==
+  DATABASE_PORT: MzMwNg==
+  SERVICE_A: "cHJvZC5leGFtcGxlLmNvbS9zZXJ2aWNlX2E="

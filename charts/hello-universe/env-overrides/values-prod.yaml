@@ -1,3 +1,1 @@
-infraSettings:
-  DATABASE_HOST: prod-db.example.com
 replicas: 10
