@@ -26,4 +26,4 @@ jobs:
         run: |
           TAG=$(cat VERSION.txt)
           echo $TAG
-          docker push nanda/hello-universe-flask-app:$TAG .
+          docker push nanda/hello-universe-flask-app:$TAG
