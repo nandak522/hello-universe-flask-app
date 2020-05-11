@@ -1,23 +1,20 @@
-name: Validate Helm Templates
+name: Helm Validations
 on:
   push:
     branches:
       - master
 jobs:
   build:
-    name: helm-validate
+    name: Validate Helm Templates
     runs-on: ubuntu-18.04
     steps:
+      - uses: actions/checkout@v2
       - uses: docker://nanda/helm-template-validator:v0.1.1
         continue-on-error: false
-      - uses: actions/checkout@v2
-      - name: Print current dir
-        run: ls -alh
-      - name: Run helm version
-        run: helm version
       - name: Validate Helm Templates
         run: |
           cd charts/hello-universe
+          helm version
           helm template hello-universe \
           -f values-infra.yaml \
           -f values.yaml \
