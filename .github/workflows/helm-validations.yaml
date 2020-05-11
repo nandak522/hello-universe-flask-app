@@ -3,8 +3,8 @@ on:
   push:
     branches:
       - master
-  pull_request:
-
+    paths:
+      - "charts/hello-universe/*"
 jobs:
   build:
     name: Validate Helm Templates
