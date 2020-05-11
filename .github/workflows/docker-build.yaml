@@ -1,0 +1,29 @@
+name: Build Docker Image
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  docker-build:
+    name: Build Image
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - continue-on-error: false
+        name: Build Docker Image
+        run: |
+          TAG=$(cat VERSION.txt)
+          echo $TAG
+          docker build -t nanda/hello-universe-flask-app:$TAG .
+
+      - name: Log in to dockerhub registry
+        run: docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Push to Docker Hub
+        run: |
+          TAG=$(cat VERSION.txt)
+          echo $TAG
+          docker push nanda/hello-universe-flask-app:$TAG .
