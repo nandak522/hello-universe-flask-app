@@ -7,18 +7,18 @@ helm template -v 5 \
     --logtostderr \
     --debug \
     -s templates/configmap.yaml \
-    -f values-infra.yaml \
-    -f values.yaml \
-    -f values-secrets.yaml \
-    -f env-overrides/values-dev.yaml \
+    --values values-infra.yaml \
+    --values values.yaml \
+    --values values-secrets.yaml \
+    --values env-overrides/values-dev.yaml \
     hello-universe \
     .
 
 helm template hello-universe \
-    -f values-infra.yaml \
-    -f values.yaml \
-    -f values-secrets.yaml \
-    -f env-overrides/values-dev.yaml \
+    --values values-infra.yaml \
+    --values values.yaml \
+    --values values-secrets.yaml \
+    --values env-overrides/values-dev.yaml \
     -v 5 \
     --debug \
     --logtostderr \
@@ -50,21 +50,21 @@ helm install -v 5 \
     --namespace hello-universe \
     --debug \
     --dry-run \
-    -f values-infra.yaml \
-    -f values-secrets.yaml \
-    -f values.yaml \
+    --values values-infra.yaml \
+    --values values-secrets.yaml \
+    --values values.yaml \
     v1 \
     .
 
 # helm upgrade -v 3 \
 #     --install \
+#     --timeout 60s \
 #     --atomic \
 #     --namespace hello-universe \
 #     --debug \
 #     --cleanup-on-fail \
-#     -f values-infra.yaml \
-#     -f values-secrets.yaml \
-#     -f values.yaml \
-#     v1 \
-#     .
+#     --values values-infra-dev.yaml \
+#     --values values-secrets.yaml \
+#     --values values.yaml \
+#     --values env-overrides/values-dev.yaml v1 .
 ```
