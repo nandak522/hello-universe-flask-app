@@ -35,7 +35,7 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ .configMapName }}
-            - configMapRef:
+            - secretRef:
                 name: {{ $root.Values.requiredInfraDependencies.name }}
           imagePullPolicy: IfNotPresent
           readinessProbe:
