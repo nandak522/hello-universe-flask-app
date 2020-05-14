@@ -7,7 +7,7 @@ helm template -v 5 \
     --logtostderr \
     --debug \
     -s templates/configmap.yaml \
-    --values values-infra.yaml \
+    --values values-infra-secrets-dev.yaml \
     --values values.yaml \
     --values values-secrets.yaml \
     --values env-overrides/values-dev.yaml \
@@ -15,7 +15,7 @@ helm template -v 5 \
     .
 
 helm template hello-universe \
-    --values values-infra.yaml \
+    --values values-infra-secrets-dev.yaml \
     --values values.yaml \
     --values values-secrets.yaml \
     --values env-overrides/values-dev.yaml \
@@ -50,7 +50,7 @@ helm install -v 5 \
     --namespace hello-universe \
     --debug \
     --dry-run \
-    --values values-infra.yaml \
+    --values values-infra-secrets-dev.yaml \
     --values values-secrets.yaml \
     --values values.yaml \
     v1 \

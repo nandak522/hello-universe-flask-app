@@ -4,6 +4,7 @@ on:
     branches:
       - master
     paths:
+      - ".github/workflows/**"
       - "charts/hello-universe/**"
 jobs:
   build:
@@ -18,7 +19,7 @@ jobs:
           cd charts/hello-universe
           helm version
           helm template hello-universe \
-          -f values-infra-dev.yaml \
+          -f values-infra-secrets-dev.yaml \
           -f values.yaml \
           -f values-secrets.yaml \
           -f env-overrides/values-dev.yaml \

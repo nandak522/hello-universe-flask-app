@@ -16,10 +16,10 @@ containers:
   resources:
     requests:
       cpu: 100m
-      memory: 100M
+      memory: 100Mi
     limits:
       cpu: 200m
-      memory: 200M
+      memory: 200Mi
 # - name: nginx
 #   port: 80
 #   portName: httpport
@@ -48,7 +48,7 @@ configMaps:
 requiredInfraDependencies:
   name: app-infra
   values:
-    # NOTE: All the below values are interpreted from values-infra.yaml
+    # NOTE: All the below values are interpreted from values-infra-secrets-<env>.yaml
     MYSQL_HOST: $DATABASE_HOST
     MYSQL_PORT: $DATABASE_PORT
     SERVICE_A: $SERVICE_A

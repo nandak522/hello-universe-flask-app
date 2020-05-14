@@ -3,7 +3,7 @@
 * Docker Image size is just 67 Megs (compressed).
 * Full Source code, along with Helm chart.
 * [Helm](https://helm.sh/) Chart containing
-    * Infrastructure Configurations (like Db, Cache etc..), separated from App Configurations. Refer `values-infra.yaml`.
+    * Infrastructure Configurations (like Db, Cache etc..), separated from App Configurations. Refer `values-infra-secrets-<env>.yaml`.
     * Pod Annotations that change when configmaps/secrets change. No need to roll the pods manually 😎. Refer the generated deployment spec.
     * Environment Level overrides (like `replicas=10` for prod, but `replicas=2` for dev/qa environments). Refer `env-overrides/values-prod.yaml` for example.
 * [Github Actions](https://github.com/features/actions) covering
