@@ -20,6 +20,7 @@ docker build -t nanda/hello-universe:<version> .
 
 ---
 ## Run Docker Container
+> `<version>` mentioned below is defined in `VERSION.txt` file.
 ```sh
 docker run -it nanda/hello-universe:<version>
 ```
