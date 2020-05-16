@@ -29,7 +29,7 @@ spec:
             successThreshold: 1
             initialDelaySeconds: 5
             failureThreshold: 2
-          image: nanda/hello-universe:v11
+          image: nanda/hello-universe:v12
           ports:
             - protocol: TCP
               name: pythonport

@@ -10,3 +10,16 @@
     * Build a Docker Image on every push if `VERSION.txt` changes.
     * Validate all helm templates on every push if helm `chart` changes.
 * Refer `commands.md` for all Helm commands.
+
+---
+## Build Docker Images
+> `<version>` mentioned below is defined in `VERSION.txt` file.
+```sh
+docker build -t nanda/hello-universe:<version> .
+```
+
+---
+## Run Docker Container
+```sh
+docker run -it nanda/hello-universe:<version>
+```

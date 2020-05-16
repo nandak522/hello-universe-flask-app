@@ -10,7 +10,7 @@ containers:
   portName: pythonport
   internalServicePort: 80
   imageName: nanda/hello-universe
-  imageTag: v11
+  imageTag: v12
   configMapName: config-plain
   secretName: secrets-plain
   resources:
