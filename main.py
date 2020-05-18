@@ -22,19 +22,34 @@ def elapsed():
 
 @app.route('/')
 def root():
-    request_headers = "".join(["<tr><td style='background:#0b0d1b; padding:6px;'>{}</td><td style='background:#141619; padding:6px;'>{}</td></tr>".format(
+    request_headers = "".join(["<tr><td class='header-key'>{}</td><td class='header-value'>{}</td></tr>".format(
         header_name, header_value) for (header_name, header_value) in flask.request.headers.items()])
     host = "[HOST: {}] (uptime: {})]".format(socket.gethostname(), elapsed())
     response_body = "Hello Universe"
     style = """
-    width: 800px;
-    margin: 0 auto;
-    font-family: sans-serif;
-    margin-top: 40px;
-    background: #000;
-    color: #FFF;
+    body {
+        width: 800px;
+        margin: 0 auto;
+        font-family: Roboto,sans-serif;
+        margin-top: 40px;
+        background: #1b1b1b;
+        color: #FFF;
+    }
+    .header-key {
+        background:#424242;
+        padding:6px;
+    }
+    .header-value {
+        background:#6d6d6d;
+        padding:6px;
+    }
+    #response {
+        font-size:20px;
+        border: 1px solid #d4d3d9;
+        padding: 20px;
+    }
     """
-    response = "<title>Hello Thanos</title><body style='{}'><h3>Request Headers</h3><table>{}</table><hr/><h3>Response from {} </h3><div style='font-size:20px;border: 1px solid #d4d3d9; padding: 20px;'>{}</div></body>".format(
+    response = "<title>Hello Universe</title><style>{}</style><body><h3>Request Headers</h3><table>{}</table><hr/><h3>Response from {} </h3><div id='response'>{}</div></body>".format(
         style.replace("\n", " "), request_headers, host, response_body)
     return response
 
