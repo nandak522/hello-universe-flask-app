@@ -1,4 +1,4 @@
-environment: prod
+environment: local
 namespace: hello-universe
 name: hello-universe
 podLabels:
