@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
-      - uses: docker://nanda/helm-template-validator:v0.1.1
+      - uses: docker://nanda/helm-template-validator:v0.1.4
         continue-on-error: false
       - name: Validate Helm Templates
         run: |
