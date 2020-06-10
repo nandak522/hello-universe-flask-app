@@ -22,7 +22,7 @@ spec:
         {{- toYaml .Values.podLabels | nindent 8 }}
       {{- include "app.podAnnotations" . | indent 6 }}
     spec:
-      {{- if and (eq .Values.environment "prod") (.Values.affinity) }}
+      {{- if .Values.affinity }}
       {{- include "app.affinity" .Values.affinity | trim | nindent 6 }}
       {{- end }}
       containers:
@@ -33,15 +33,21 @@ spec:
             periodSeconds: 5
           name: {{ .name }}
           envFrom:
+            {{- if .configMapName }}
             - configMapRef:
                 name: {{ .configMapName }}
+            {{- end }}
+            {{- if .secretName }}
+            - secretRef:
+                name: {{ .secretName }}
+            {{- end }}
             - secretRef:
                 name: {{ $root.Values.requiredInfraDependencies.name }}
           imagePullPolicy: IfNotPresent
           readinessProbe:
             httpGet:
               path: /
-              port: {{ .port }}
+              port: {{ .containerPort }}
             timeoutSeconds: 10
             periodSeconds: 5
             successThreshold: 1
@@ -49,16 +55,19 @@ spec:
           image: {{ .imageName }}:{{- .imageTag }}
           ports:
             - protocol: TCP
-              name: {{ .portName }}
-              containerPort: {{ .port }}
+              name: {{ .containerPortName }}
+              containerPort: {{ .containerPort }}
           resources:
           {{- toYaml .resources | nindent 12 }}
+          {{- if or ($root.Values.configMaps) ($root.Values.secrets) }}
           volumeMounts:
             {{- include "app.containerVolumeMounts" $root.Values.configMaps | trim | nindent 12 }}
             {{- include "app.containerVolumeMounts" $root.Values.secrets | trim | nindent 12 }}
+          {{- end }}
+      {{- end }}
+      {{- include "app.nodeLabels" .Values.nodeLabels | trim | nindent 6 }}
       {{ $podConfigMapVolumesData := dict "configMaps" $root.Values.configMaps "type" "configMaps" -}}
       {{ $podSecretVolumesData := dict "secrets" $root.Values.secrets "type" "secrets" -}}
       volumes:
         {{- include "app.podVolumes" $podConfigMapVolumesData | trim | nindent 8 }}
         {{- include "app.podVolumes" $podSecretVolumesData | trim | nindent 8 }}
-      {{- end }}

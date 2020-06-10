@@ -7,9 +7,10 @@ spec:
   type: NodePort
   ports:
     {{- range .Values.containers }}
-    - protocol: TCP
-      targetPort: {{ .port }}
+    - nodePort: {{ .externalNodePort }}
       port: {{ .internalServicePort }}
+      protocol: TCP
+      targetPort: {{ .containerPort }}
     {{- end }}
   selector:
     app: {{ .Values.name }}

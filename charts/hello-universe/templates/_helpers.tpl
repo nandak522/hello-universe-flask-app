@@ -4,6 +4,17 @@
 Renders nodeAffinity block in the manifests
 */}}
 
+{{/*
+Renders nodeSelector block in the manifests
+*/}}
+
+{{- define "app.nodeLabels" }}
+{{- if . }}
+nodeSelector:
+  {{ toYaml . }}
+{{- end -}}
+{{- end -}}
+
 {{- define "app.affinity" }}
 affinity:
   {{- if .nodeAffinityLabels }}

@@ -6,11 +6,12 @@ podLabels:
 replicas: 1
 containers:
 - name: hello-universe
-  port: 5000
-  portName: pythonport
+  containerPortName: pythonport
+  containerPort: 5000
   internalServicePort: 80
+  externalNodePort: 32767
   imageName: nanda/hello-universe
-  imageTag: v12
+  imageTag: v13
   configMapName: config-plain
   secretName: secrets-plain
   resources:
@@ -21,19 +22,19 @@ containers:
       cpu: 200m
       memory: 200Mi
 # - name: nginx
-#   port: 80
-#   portName: httpport
+#   containerPort: 80
+#   containerPortName: httpport
 #   internalServicePort: 80
+#   externalNodePort: 32766
 #   imageName: nginx
 #   imageTag: v1.18.0
-#   configMapName: nginx
 #   resources:
 #     requests:
 #       cpu: 100m
-#       memory: 100M
+#       memory: 100Mi
 #     limits:
 #       cpu: 200m
-#       memory: 200M
+#       memory: 200Mi
 configMaps:
 - name: config-plain
   data:
@@ -52,6 +53,10 @@ requiredInfraDependencies:
     MYSQL_HOST: $DATABASE_HOST
     MYSQL_PORT: $DATABASE_PORT
     SERVICE_A: $SERVICE_A
+# NOTE: nodeLabels renders the nodeSelector block.
+# nodeAffinityLabels, although can be used as an alternative to `nodeSelector`, is much more powerful than `nodeSelector`.
+# nodeLabels:
+#   kubernetes.io/hostname: minikube
 # affinity:
 #   nodeAffinityLabels:
 #     - name: kubernetes.io/hostname
